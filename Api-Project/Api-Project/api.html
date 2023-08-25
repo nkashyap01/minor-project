@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="api.css" />
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body id="body">
+    <div class="container">
+      <div class="card">
+        <h2>
+          <i class="fa fa-map-marker"><span id="location"></span> </i>
+        </h2>
+        <h6 id="weather"></h6>
+        <h4><span id="temp"></span><sup>o</sup>C</h4>
+        <img src="" id="icon" />
+        <button onclick="window.location.reload()" class="refresh">
+          <i class="fa fa-refresh"></i>
+        </button>
+      </div>
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <script>
+      // Woring APi http://api.openweathermap.org/data/2.5/weather?q=London&appid=886705b4c1182eb1c69f28eb8c520e20
+
+      fetch(
+        "https://api.openweathermap.org/data/2.5/weather?q=sitamarhi&appid=886705b4c1182eb1c69f28eb8c520e20"
+      )
+        .then((res) => res.json())
+        .then((obj) => {
+          console.log(obj);
+
+          document.getElementById("weather").innerHTML =
+            obj.weather[0].description;
+          document.getElementById("location").innerHTML =
+            " " + obj.name + ", " + obj.sys.country;
+          document.getElementById("temp").innerHTML = (
+            obj.main.temp - 273.15
+          ).toFixed(2);
+          document.getElementById("icon").src =
+            "https://api.openweathermap.org/img/w/" +
+            obj.weather[0].icon +
+            ".png";
+        });
+    </script>
+  </body>
+</html>
